@@ -1,2 +1,0 @@
-cd web
-npm install .
