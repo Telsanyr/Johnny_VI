@@ -6,7 +6,7 @@
 import supervisor_module
 
 # Service Version
-SERVICE_VERSION = "1.0.0"
+SERVICE_VERSION = "1.1.0"
 
 class Service(supervisor_module.AbstractService):
     def __init__(self, name, room, active):
@@ -20,3 +20,5 @@ class Service(supervisor_module.AbstractService):
             self._send(str(self.room.website_url) + "/help")
         elif msg == "!patchnote":
             self._send(str(self.room.website_url) + "/patchnote")
+        elif msg == "!github":
+            self._send("https://github.com/Telsanyr/Johnny_VI")

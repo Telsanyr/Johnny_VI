@@ -11,7 +11,14 @@
 ## Installation
 
 #### Clone the repository
-Clone this repository (*bot* folder) in an empty folder (the *project* folder) because the installation process will create a *database* folder at the same level. After complete deployment, your *project* folder will look like this:
+Clone this repository (*bot* folder) in an empty folder (the *project* folder) because the installation process will create a *database* folder at the same level.
+
+~~~~
+git clone https://github.com/Telsanyr/Johnny_VI.git bot
+~~~~
+
+#### Teaser 
+After complete deployment, your *project* folder will look like this:
 
 ~~~~
 <project folder>
