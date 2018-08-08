@@ -1,0 +1,97 @@
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  font-family: Arial;
+  background-color: rgb(252, 252, 252, 1);
+  padding: 20px 30px;
+}
+
+#page_title {
+  font-size: 44px;
+  text-align: left;
+  color: rgb(51, 51, 51); /* APIX Black */
+}
+
+#pokedex_section {
+  margin: 30px 0px;
+  padding: 15px 15px;
+  background-color: rgba(0, 255, 0, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.unknown_player {
+  margin: 10px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Open Sans';
+  font-size: 24px;
+}
+
+.pokemon_box {
+  position: relative;
+  margin: 20px;
+  width: 150px;
+  height: 180px;
+  /* background-color: rgba(0, 255, 0, 0.05); */
+}
+
+.not_owned {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.owned {
+  font-weight: bold;
+}
+
+.double {
+  background-color: rgba(255, 0, 0, 0.15);
+  border: 0px solid rgb(209, 16, 5);
+  border-radius: 25px;
+}
+
+.pokemon_image {
+  margin: 10px;
+  width: 130px;
+  height: 130px;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.pokemon_missing {
+  opacity: 0.2;
+}
+
+.pokemon_info {
+  width: 150px;
+  height: 30px;
+  text-align: center;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  /* background-color: rgba(0, 0, 255, 0.05); */
+}
+
+.amount {
+  position: absolute;
+  padding-top: 1px;
+  top: 10px;
+  right: 10px;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  font-family: 'Open Sans';
+  font-size: 20px;
+  color: rgb(209, 16, 5);
+  background-color: rgb(243, 243, 98);
+  border: 3px solid rgb(209, 16, 5);
+  border-radius: 25px;
+}

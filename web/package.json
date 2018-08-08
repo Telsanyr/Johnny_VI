@@ -1,0 +1,9 @@
+{
+    "name": "Johnny6",
+    "version": "0.1.0",
+    "dependencies": {
+        "express": "*"
+    },
+    "author": "Telsa",
+    "description": "Beep Boop"
+}

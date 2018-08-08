@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Events</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Javascript Src -->
+  <script src="js/events.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/events.css" type="text/css" media="screen" />
+
+</head>
+<body>
+
+  <div class="page">
+    <div class="page_title">PokemOnIRC Game Events</div>
+
+    <div class="module_section">
+      <div id="show_hide" class="module_title">
+        <div class="module_name">Game Events</div>
+        <div id="ZMQ_SVG_ICON"></div>
+        <!-- <div id="ZMQ_SVG_ICON2"></div> -->
+      </div>
+
+      <div id="content">
+        <div class="module_options">
+          <button class="button">Last 10 messages</button>
+          <button class="button">Last 100 messages</button>
+          <button class="button">All messages</button>
+        </div>
+        <div class="code_box">
+          <table style="width: 100%">
+            <thead>
+              <tr>
+                <th style="width:250px" scope="col">Timestamp</th>
+                <th style="width:180px" scope="col">Evenement</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody id="ZMQ-REQ-CODE-BOX" class="code">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+        <script>
+          var hide = false;
+          $("#show_hide").click(function(){
+            if(hide){
+              $("#content").css("display", "block")
+              hide = false;
+            } else {
+              $("#content").css("display", "none")
+              hide = true
+            }
+          })
+
+          let getSvgArrowUp = function(){
+            return '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"'
+                     + 'class="svg_icon" viewBox="0 0 292.362 292.361" style="enable-background:new 0 0 292.362 292.361;"'
+                     + 'xml:space="preserve">'
+                    + '<g>'
+                      + '<path d="M286.935,197.287L159.028,69.381c-3.613-3.617-7.895-5.424-12.847-5.424s-9.233,1.807-12.85,5.424L5.424,197.287'
+                        + 'C1.807,200.904,0,205.186,0,210.134s1.807,9.233,5.424,12.847c3.621,3.617,7.902,5.425,12.85,5.425h255.813'
+                        + 'c4.949,0,9.233-1.808,12.848-5.425c3.613-3.613,5.427-7.898,5.427-12.847S290.548,200.904,286.935,197.287z"/>'
+                    + '</g>'
+                  + '</svg>';
+          }
+
+          let getSvgArrowDown = function(){
+            return '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"'
+                      + 'class="svg_icon" viewBox="0 0 292.362 292.362" style="enable-background:new 0 0 292.362 292.362;"'
+                      + 'xml:space="preserve">'
+                    + '<g>'
+                      + '<path d="M286.935,69.377c-3.614-3.617-7.898-5.424-12.848-5.424H18.274c-4.952,0-9.233,1.807-12.85,5.424'
+                        + 'C1.807,72.998,0,77.279,0,82.228c0,4.948,1.807,9.229,5.424,12.847l127.907,127.907c3.621,3.617,7.902,5.428,12.85,5.428'
+                        + 's9.233-1.811,12.847-5.428L286.935,95.074c3.613-3.617,5.427-7.898,5.427-12.847C292.362,77.279,290.548,72.998,286.935,69.377z"/>'
+                    + '</g>'
+                  + '</svg>';
+          }
+
+          $("#ZMQ_SVG_ICON").html(getSvgArrowDown());
+
+        </script>
+
+
+
+    </div>
+
+  </div>
+
+
+</body>
+</html>
