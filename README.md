@@ -35,12 +35,12 @@ After complete deployment, your *project* folder will look like this:
 |   |   └── ...
 |   ├── ...
 |   ├── README.md
-│   ├── deploy_database.sh
-│   ├── deploy_website.sh
-│   ├── run_bot.sh
-│   ├── run_bot_debug.sh
-│   ├── run_bot_mockup.sh
-│   └── run_website.sh
+│   ├── deploy_database.cmd
+│   ├── deploy_website.cmd
+│   ├── run_bot.cmd
+│   ├── run_bot_debug.cmd
+│   ├── run_bot_mockup.cmd
+│   └── run_website.cmd
 └── database/
     ├── bootstrap/
     │   ├── debug_connection.json
@@ -50,7 +50,7 @@ After complete deployment, your *project* folder will look like this:
 ~~~~
 
 #### Deploy the database
-For the moment, your *database* folder has not been created. You need to run the script `deploy_database.sh`. Then, you need to complete both following files :
+For the moment, your *database* folder has not been created. You need to run the script `deploy_database.cmd`. Then, you need to complete both following files :
 ~~~~
 <project folder>
 └── database/
@@ -79,17 +79,17 @@ The `debug_connection.json` file contains information used when the bot is run i
 The will need to install both **Node.js** and **npm** in order to setup and run the website. See https://nodejs.org/
 
 ##### Installation
-For your website installation, you need to run the script `deploy_website.sh`. It will install all node-packages needed with **npm**.
+For your website installation, you need to run the script `deploy_website.cmd`. It will install all node-packages needed with **npm**.
 
 ## How to start everything ?
 
 ### Bot launcher
 
-You can start the bot with the `run_bot.sh` script. Connection information will be based on `prod_connection.json` file. The bot should connect to the mentioned IRC server and join the *active room*.
+You can start the bot with the `run_bot.cmd` script. Connection information will be based on `prod_connection.json` file. The bot should connect to the mentioned IRC server and join the *active room*.
 
-You can run the bot in *debug mode* with `run_bot_debug.sh` if you want to use the `debug_connection.json` file.
-You can run the bot in *mock-up mode* with `run_bot_mockup.sh`, it will not connect to any IRC server but you can interact with it in command line (as if you were in a IRC room). In *mock-up mode*, *debug* information are used.
+You can run the bot in *debug mode* with `run_bot_debug.cmd` if you want to use the `debug_connection.json` file.
+You can run the bot in *mock-up mode* with `run_bot_mockup.cmd`, it will not connect to any IRC server but you can interact with it in command line (as if you were in a IRC room). In *mock-up mode*, *debug* information are used.
 
 ### Website launcher
 
-You can start the dedicated website with the `run_website.sh` script. By default it will be run on the port **14623**.
+You can start the dedicated website with the `run_website.cmd` script. By default it will be run on the port **14623**.
