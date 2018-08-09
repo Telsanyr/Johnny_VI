@@ -74,7 +74,24 @@ class GameEngine():
             self.output.raise_FAIL_CRUSH_NO_POKEMON(player, pokemon)
             return
 
-    def evolve_pokemon(self, username, pokemon):
+    def open_lootbox(self, username):
+        player = self.players.get(username) # New players do not have any lootbox anyway
+        if player == None:
+            self.output.raise_UNKNWON_PLAYER(username)
+            return
+
+        success = player.pokestuff.use_lootbox()
+        if not success:
+            self.output.raise_FAIL_OPEN_NO_LOOTBOX(player)
+            return
+
+        loots = LOOTBOX_RULES.OPEN()
+        for loot in loots:
+            player.pokestuff.add_pokestuff(loot["pokestuff"], loot["amount"])
+        self.output.ack_OPEN_LOOTBOX(player, loots)
+        self.save_database() # PokemOnIRC database has been modified
+
+    def evolve_pokemon(self, username, pokemon, component):
         player = self.players.get(username) # New players do not have any pokemon anyway
         if player == None:
             self.output.raise_UNKNWON_PLAYER(username)
@@ -84,6 +101,15 @@ class GameEngine():
             self.output.raise_UNKNWON_POKEMON()
             return
 
+        if component == POKESTUFFS.MOONSTONE:
+            self._evolve_moonstone(player, pokemon)
+        elif component == POKESTUFFS.THUNDERSTONE or component == POKESTUFFS.FIRESTONE or component == POKESTUFFS.WATERSTONE:
+            self._evolve_eevee(player, pokemon, component)
+        else:
+            self.output.raise_UNUSABLE_POKESTUFF(component)
+            return
+
+    def _evolve_moonstone(self, player, pokemon):
         if pokemon.evolution == 0: # 0: no evolution
             self.output.raise_NO_EVOLUTION(pokemon)
             return
@@ -93,8 +119,8 @@ class GameEngine():
             self.output.raise_FAIL_EVOLVE_NO_POKEMON(player, pokemon)
             return
 
-        if pokemon.evolution == -1: # -1: special evolution # TODO Not Implemented Yet
-            self.output.raise_MOONSTONE_NO_EFFECT(pokemon)
+        if pokemon.evolution == -1: # -1: special evolution for evoli
+            self.output.raise_STONE_NO_EFFECT(pokemon, POKESTUFFS.MOONSTONE)
             return
         else:
             # Classic evolution with moonstone
@@ -102,7 +128,7 @@ class GameEngine():
             evolution_item = player.pokedex.get(evolution.id)
 
             if player.pokestuff.moonstone <= 0:
-                self.output.raise_FAIL_EVOLVE_NO_MOONSTONE(player, pokemon)
+                self.output.raise_FAIL_EVOLVE_NO_STONE(player, pokemon, POKESTUFFS.MOONSTONE)
                 return
 
             kebab_needed = evolution.power * evolution.power
@@ -119,8 +145,66 @@ class GameEngine():
                 LOGGER.error("Should not happen, fail in pokemon evolution (POKEMON = " + str(pokemon_delete_success) + ", KEBAB = " + str(kebabs_use_success) + ", MOONSTONE = " + str(moonstone_use_success) + ")")
             # We give the pokemon even in this case of bug because we are kind ! (it should not happen)
             evolution_item.add()
-            self.output.ack_EVOLUTION_MOONSTONE(player, pokemon, evolution, POKESTUFFS.MOONSTONE, 1, POKESTUFFS.KEBAB, kebab_needed)
+            self.output.ack_EVOLUTION_STONE(player, pokemon, evolution, POKESTUFFS.MOONSTONE, 1, POKESTUFFS.KEBAB, kebab_needed)
             self.save_database() # PokemOnIRC database has been modified
+
+    def _evolve_eevee(self, player, pokemon, pokestuff):
+        if pokemon.id != 133: # Not Eevee
+            self.output.raise_STONE_NO_EFFECT(pokemon, pokestuff)
+            return
+
+        pokedex_item = player.pokedex.get(pokemon.id)
+        if pokedex_item.amount <= 0:
+            self.output.raise_FAIL_EVOLVE_NO_POKEMON(player, pokemon)
+            return
+
+        evolution_id = -1
+        if pokestuff == POKESTUFFS.THUNDERSTONE: # Jolteon
+            evolution_id = 135
+            if player.pokestuff.thunderstone <= 0:
+                self.output.raise_FAIL_EVOLVE_NO_STONE(player, pokemon, pokestuff)
+                return
+        elif pokestuff == POKESTUFFS.FIRESTONE: # Flareon
+            evolution_id = 136
+            if player.pokestuff.firestone <= 0:
+                self.output.raise_FAIL_EVOLVE_NO_STONE(player, pokemon, pokestuff)
+                return
+        elif pokestuff == POKESTUFFS.WATERSTONE: # Vaporeon
+            evolution_id = 134
+            if player.pokestuff.waterstone <= 0:
+                self.output.raise_FAIL_EVOLVE_NO_STONE(player, pokemon, pokestuff)
+                return
+        else:
+            self.output.raise_UNUSABLE_POKESTUFF(pokestuff)
+            return
+
+        evolution = POKEMONS.GET_POKEMON_BY_ID(evolution_id)
+        evolution_item = player.pokedex.get(evolution_id)
+        kebab_needed = evolution.power * evolution.power
+        if player.pokestuff.kebab < kebab_needed:
+            self.output.raise_FAIL_EVOLVE_NO_ENOUGHT_KEBAB(player, pokemon, player.pokestuff.kebab, kebab_needed)
+            return
+
+        # Recipe: 1 pokemon, 1 stone, x kebabs
+        pokemon_delete_success = pokedex_item.delete()
+        kebabs_use_success = player.pokestuff.use_kebabs(kebab_needed)
+        stone_use_success = False
+        if pokestuff == POKESTUFFS.THUNDERSTONE:
+            stone_use_success = player.pokestuff.use_thunderstone()
+        elif pokestuff == POKESTUFFS.FIRESTONE:
+            stone_use_success = player.pokestuff.use_firestone()
+        elif pokestuff == POKESTUFFS.WATERSTONE:
+            stone_use_success = player.pokestuff.use_waterstone()
+
+        if not (pokemon_delete_success and kebabs_use_success and stone_use_success):
+            # Should not happen
+            LOGGER.error("Should not happen, fail in pokemon evolution (POKEMON = " + str(pokemon_delete_success) + ", KEBAB = " + str(kebabs_use_success) + ", STONE = " + str(moonstone_use_success) + ")")
+        # We give the pokemon even in this case of bug because we are kind ! (it should not happen)
+        evolution_item.add()
+        self.output.ack_EVOLUTION_STONE(player, pokemon, evolution, pokestuff, 1, POKESTUFFS.KEBAB, kebab_needed)
+        self.save_database() # PokemOnIRC database has been modified
+
+
 
     # ------------------------------------------------------------------------ #
     # --- Display                                                          --- #

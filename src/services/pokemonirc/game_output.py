@@ -37,12 +37,24 @@ class GameOutput():
         self.room.send("La collection de _" + str(player.username) + " comptabilise " + str(player.pokedex.get_total_amount()) + " pokemons (" + str(player.pokedex.get_distinct_amount()) + "/151) : " + link)
 
     def display_POKESTUFF(self, player):
-        self.room.send("_" + str(player.username) + " possède "
-            + str(player.pokestuff.barbapapa) + " " + POKESTUFFS.to_string(POKESTUFFS.BARBAPAPA) + ", "
-            + str(player.pokestuff.kebab) + " " + POKESTUFFS.to_string(POKESTUFFS.KEBAB) + ", "
-            + str(player.pokestuff.pokeball) + " " + POKESTUFFS.to_string(POKESTUFFS.POKEBALL) + ", "
-            + str(player.pokestuff.superball) + " " + POKESTUFFS.to_string(POKESTUFFS.SUPERBALL) + " et "
-            + str(player.pokestuff.moonstone) + " " + POKESTUFFS.to_string(POKESTUFFS.MOONSTONE) + ".")
+        s = "_" + str(player.username) + " possède "
+        s += str(player.pokestuff.barbapapa) + " " + POKESTUFFS.to_string(POKESTUFFS.BARBAPAPA) + ", "
+        s += str(player.pokestuff.kebab) + " " + POKESTUFFS.to_string(POKESTUFFS.KEBAB) + ", "
+        s += str(player.pokestuff.pokeball) + " " + POKESTUFFS.to_string(POKESTUFFS.POKEBALL) + ", "
+        s += str(player.pokestuff.superball) + " " + POKESTUFFS.to_string(POKESTUFFS.SUPERBALL)
+        # display only if owned
+        if player.pokestuff.moonstone > 0:
+            s += ", " + str(player.pokestuff.moonstone) + " " + POKESTUFFS.to_string(POKESTUFFS.MOONSTONE)
+        if player.pokestuff.thunderstone > 0:
+            s += ", " + str(player.pokestuff.thunderstone) + " " + POKESTUFFS.to_string(POKESTUFFS.THUNDERSTONE)
+        if player.pokestuff.firestone > 0:
+            s += ", " + str(player.pokestuff.firestone) + " " + POKESTUFFS.to_string(POKESTUFFS.FIRESTONE)
+        if player.pokestuff.waterstone > 0:
+            s += ", " + str(player.pokestuff.waterstone) + " " + POKESTUFFS.to_string(POKESTUFFS.WATERSTONE)
+        if player.pokestuff.lootbox > 0:
+            s += ", " + str(player.pokestuff.lootbox) + " " + POKESTUFFS.to_string(POKESTUFFS.LOOTBOX)
+        s += "."
+        self.room.send(s)
 
     # ------------------------------------------------------------------------ #
     # --- Acknowledge Messages                                             --- #
@@ -55,11 +67,11 @@ class GameOutput():
 
     def ack_RIDDLE_SPAWN(self, id):
         self.log_game_event("RIDDLE_SPAWN", {"pokemon": id})
-        self.room.send("Vous rencontrez le fantôme du père Fouras, celui-ci a une enigme pour vous. Si vous répondez correctement il vous donnera une Pierre Lune. Le père Fouras vous demande quel est le pokemon numero "+ str(id) + " ?")
+        self.room.send("Vous rencontrez le fantôme du père Fouras, celui-ci a une enigme pour vous. Le père Fouras vous demande quel est le pokemon numero " + str(id) + " ?")
 
     def ack_RIDDLE_WINNER(self, player, pokestuff, amount):
         self.log_game_event("RIDDLE_WINNER", {"player": player.username, "pokestuff": pokestuff, "amount": amount})
-        self.room.send("[Fantôme du Père Fouras] : Bonne réponse " + str(player.username) + ". Voici " + str(amount) + " " + POKESTUFFS.to_string(pokestuff) + ", elle vous permettera de faire évoluer vos pokemons.")
+        self.room.send("[Fantôme du Père Fouras] : Bonne réponse " + str(player.username) + ". Voici " + str(amount) + " " + POKESTUFFS.to_string(pokestuff) + ".")
 
     def ack_RIDDLE_LEAVE(self):
         self.log_game_event("RIDDLE_LEAVE", {})
@@ -103,8 +115,25 @@ class GameOutput():
         self.log_game_event("BUY_SHOP", {"player": player.username, "pokestuff": pokestuff, "amount": amount})
         self.room.send(str(player.username) + ", " + str(amount) + " " + POKESTUFFS.to_string(pokestuff) + " ont été ajouté à votre pokestuff.")
 
-    def ack_EVOLUTION_MOONSTONE(self, player, pokemon, evolution, pokestuff1, pokestuff1_amount, pokestuff2, pokestuff2_amount):
-        self.log_game_event("EVOLUTION_MOONSTONE", {"player": player.username, "pokemon": pokemon.id, "evolution": evolution.id, "pokestuff": [pokestuff1, pokestuff2], "amount": [pokestuff1_amount, pokestuff2_amount]})
+    def ack_OPEN_LOOTBOX(self, player, loots):
+        self.log_game_event("OPEN_LOOTBOX", {"player": player.username, "loots": loots})
+        s = str(player.username) + " ouvre un " + POKESTUFFS.to_string(POKESTUFFS.LOOTBOX) + "."
+        if len(loots) == 0:
+            s += " Il est vide... Seuls des cristaux de sel se sont formés sur les parois."
+        else:
+            s += " Il contient "
+            for i in range(len(loots)):
+                s += str(loots[i]["amount"]) + " " + POKESTUFFS.to_string(loots[i]["pokestuff"])
+                if i < len(loots) - 2:
+                    s += ", "
+                elif i == len(loots) - 2:
+                    s += " et "
+                else:
+                    s += "."
+        self.room.send(s)
+
+    def ack_EVOLUTION_STONE(self, player, pokemon, evolution, pokestuff1, pokestuff1_amount, pokestuff2, pokestuff2_amount):
+        self.log_game_event("EVOLUTION_STONE", {"player": player.username, "pokemon": pokemon.id, "evolution": evolution.id, "pokestuff": [pokestuff1, pokestuff2], "amount": [pokestuff1_amount, pokestuff2_amount]})
         self.room.send(str(player.username) + " fait ingérer " + str(pokestuff1_amount) + " " + POKESTUFFS.to_string(pokestuff1)
             + " ainsi que " + str(pokestuff2_amount) + " " + POKESTUFFS.to_string(pokestuff2) + " à " + str(pokemon.name)
             + ". Il le prend dans ses bras, le secoue violemment, le repose au sol et la magie commence à opérer. "
@@ -146,26 +175,32 @@ class GameOutput():
     def raise_ENROLLED_WITH_ILLEGAL_POKESTUFF(self, player, pokestuff, amount, allowed):
         self.room.send(str(player.username) + ", tu ne possèdes que " + str(allowed) + " " + POKESTUFFS.to_string(pokestuff) + " en stock. Il t'en manque " + str(amount-allowed) + " pour pouvoir faire cela.")
 
-    def raise_UNBUYABLE_POKESTUFF(self, pokestuff):
-        self.room.send("Ca ne s'achète pas un(e) " + str(pokestuff) + ". Si on a essayé de vous en vendre vous vous êtes fait arnaquer !")
+    def raise_UNUSABLE_POKESTUFF(self, pokestuff):
+        self.room.send("Tu ne peux pas effectuer cette action avec des " + POKESTUFFS.to_string(pokestuff) + ".")
 
-    def raise_UNKNOWN_POKESTUFF(self, pokestuff):
-        self.room.send("Je ne sais pas ce que c'est un(e) " + str(pokestuff) + ", ça se mange ?")
+    def raise_UNBUYABLE_POKESTUFF(self, input):
+        self.room.send("Ca ne s'achète pas un(e) " + str(input) + ". Si on a essayé de vous en vendre vous vous êtes fait arnaquer !")
+
+    def raise_UNKNOWN_POKESTUFF(self, input):
+        self.room.send("Je ne sais pas ce que c'est un(e) " + str(input) + ", ça se mange ?")
 
     def raise_FAIL_CRUSH_NO_POKEMON(self, player, pokemon):
         self.room.send(str(player.username) + ", je comprends vos envie de broyer un petit " + str(pokemon.name) + " mais vous devez en apprivoiser un pour faire cela.")
 
+    def raise_FAIL_OPEN_NO_LOOTBOX(self, player):
+        self.room.send(str(player.username) + ", tu ne disposes d'aucun " + POKESTUFFS.to_string(POKESTUFFS.LOOTBOX) + " à l'heure actuelle.")
+
     def raise_NO_EVOLUTION(self, pokemon):
         self.room.send(str(pokemon.name) + " ne possède aucune évolution connue à ce jour.")
 
-    def raise_MOONSTONE_NO_EFFECT(self, pokemon):
-        self.room.send("Les pierres Lune n'ont aucun effet sur " + str(pokemon.name) + ".")
+    def raise_STONE_NO_EFFECT(self, pokemon, stone):
+        self.room.send("Les " + POKESTUFFS.to_string(stone) + " n'ont aucun effet sur " + str(pokemon.name) + ".")
 
     def raise_FAIL_EVOLVE_NO_POKEMON(self, player, pokemon):
         self.room.send(str(player.username) + ", tu dois commencer par apprivoiser un " + str(pokemon.name) + " pour pouvoir le faire évoluer.")
 
-    def raise_FAIL_EVOLVE_NO_MOONSTONE(self, player, pokemon):
-        self.room.send(str(player.username) + ", pour faire évoluer un " + str(pokemon.name) + " il faut avoir une pierre Lune.")
+    def raise_FAIL_EVOLVE_NO_STONE(self, player, pokemon, stone):
+        self.room.send(str(player.username) + ", pour faire évoluer un " + str(pokemon.name) + " il faut avoir une " + POKESTUFFS.to_string(stone) + ".")
 
     def raise_FAIL_EVOLVE_NO_ENOUGHT_KEBAB(self, player, pokemon, amount, needed):
         self.room.send(str(player.username) + ", pour faire évoluer un " + str(pokemon.name) + " il faut lui donner " + str(needed) + " " + POKESTUFFS.to_string(POKESTUFFS.KEBAB) + " or tu n'en possèdes que " + str(amount) + ".")

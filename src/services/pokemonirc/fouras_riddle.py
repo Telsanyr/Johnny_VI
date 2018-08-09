@@ -44,14 +44,14 @@ class FourasRiddle():
 
     def try_answer(self, msg, username):
         if self.answer != None: # Fouras is waiting for an answer
-            if msg.lower() == self.answer.lower():
+            if msg.lower() == self.answer.lower() or msg.lower() == "!pokemon " + self.answer.lower() :
                 self.solve_riddle(username)
                 self.answer = None
 
     def solve_riddle(self, username):
         player = self.players.safe_get(username) # Create user if not found
-        player.pokestuff.add_moonstone(1)
-        self.output.ack_RIDDLE_WINNER(player, POKESTUFFS.MOONSTONE, 1)
+        player.pokestuff.add_lootbox(1)
+        self.output.ack_RIDDLE_WINNER(player, POKESTUFFS.LOOTBOX, 1)
         self.engine.save_database() # PokemOnIRC database has been modified
 
     # ------------------------------------------------------------------------ #

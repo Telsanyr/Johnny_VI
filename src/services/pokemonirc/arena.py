@@ -23,7 +23,7 @@ class ARENA_RULES():
                 else:
                     return math.exp(-1 * pokemon.power * pokemon.power * coef[1])
         # Unknown pokestuff
-        LOGGER.error( "[Error] Unable to compute catch probability, unknown item") # TODO
+        LOGGER.error( "Unable to compute catch probability, unknown item")
         return 0.0
 
 class Arena():
@@ -65,7 +65,7 @@ class Arena():
             elif stuff == POKESTUFFS.SUPERBALL:
                 allowed = player.pokestuff.use_superball()
             else:
-                self.output.raise_UNKNOWN_POKESTUFF(stuff) # Should not happen
+                self.output.raise_UNUSABLE_POKESTUFF(stuff) # Should not happen
                 return False
 
             if allowed:
@@ -126,7 +126,7 @@ class Arena():
         elif stuff == POKESTUFFS.SUPERBALL:
             max_allowed = player.pokestuff.superball
         else:
-            self.output.raise_UNKNOWN_POKESTUFF(stuff) # Should not happen
+            self.output.raise_UNUSABLE_POKESTUFF(stuff) # Should not happen
             return
 
         # Special amount for all-in

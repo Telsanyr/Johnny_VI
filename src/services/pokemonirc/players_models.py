@@ -14,6 +14,32 @@ class PokestuffModel():
         self.superball = 0
         self.kebab = 0
         self.moonstone = 0
+        self.thunderstone = 0
+        self.firestone = 0
+        self.waterstone = 0
+        self.lootbox = 0
+
+    def add_pokestuff(self, pokestuff, amount):
+        if pokestuff == POKESTUFFS.BARBAPAPA:
+            self.barbapapa += amount
+        elif pokestuff == POKESTUFFS.POKEBALL:
+            self.pokeball += amount
+        elif pokestuff == POKESTUFFS.SUPERBALL:
+            self.superball += amount
+        elif pokestuff == POKESTUFFS.KEBAB:
+            self.kebab += amount
+        elif pokestuff == POKESTUFFS.MOONSTONE:
+            self.moonstone += amount
+        elif pokestuff == POKESTUFFS.THUNDERSTONE:
+            self.thunderstone += amount
+        elif pokestuff == POKESTUFFS.FIRESTONE:
+            self.firestone += amount
+        elif pokestuff == POKESTUFFS.WATERSTONE:
+            self.waterstone += amount
+        elif pokestuff == POKESTUFFS.LOOTBOX:
+            self.lootbox += amount
+        else:
+            LOGGER.error( "Unable to add pokestuff, unknwon pokestuff")
 
     def add_barbapapa(self, n):
         self.barbapapa += n
@@ -29,6 +55,18 @@ class PokestuffModel():
 
     def add_moonstone(self, n):
         self.moonstone += n
+
+    def add_thunderstone(self, n):
+        self.thunderstone += n
+
+    def add_firestone(self, n):
+        self.firestone += n
+
+    def add_waterstone(self, n):
+        self.waterstone += n
+
+    def add_lootbox(self, n):
+        self.lootbox += n
 
     def use_barbapapa(self):
         if self.barbapapa > 0:
@@ -68,6 +106,34 @@ class PokestuffModel():
     def use_moonstone(self):
         if self.moonstone > 0:
             self.moonstone -= 1
+            return True
+        else:
+            return False
+
+    def use_thunderstone(self):
+        if self.thunderstone > 0:
+            self.thunderstone -= 1
+            return True
+        else:
+            return False
+
+    def use_firestone(self):
+        if self.firestone > 0:
+            self.firestone -= 1
+            return True
+        else:
+            return False
+
+    def use_waterstone(self):
+        if self.waterstone > 0:
+            self.waterstone -= 1
+            return True
+        else:
+            return False
+
+    def use_lootbox(self):
+        if self.lootbox > 0:
+            self.lootbox -= 1
             return True
         else:
             return False

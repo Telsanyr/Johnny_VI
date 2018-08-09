@@ -37,7 +37,21 @@ Sortie le 29 juillet 2018
 - Correction de la typo sur le mot **comptabilise**.
 - Correction de l'inversion des deux pokemons **M.** et **Mme Nidoran** (rassurez-vous, aucune présupposition de genre n'a été faites ici, cette information ayant été remontée par les pokemons eux-même)
 
-### Patch 1.4 Soon™
+### Patch 1.4 - *Eevee Update*
+
+- Ajout des objets **pierre Foudre**, **pierre Feu**, **pierre Eau**. Celles-ci permettent de faire évoluer le pokemon **Evoli** en respectivement **Voltali**, **Pyroli** et **Aquali**.
+- Ajout des commandes :
+  - __!moonevolve__ *<pokemon/id>*
+  - __!thundervolve__ *<pokemon/id>*
+  - __!fireevolve__ *<pokemon/id>*
+  - __!waterevolve__ *<pokemon/id>*
+- Ces nouvelles commandes permettent de faire évoluer un pokemon en utilisant la pierre correspondante (respectivement **Lune**, **Foudre**, **Feu** et **Eau**).
+- La commande _!evolve_ existe toujours et utilise la **pierre Lune** par défaut.
+- Ajout de l'objet **coffre à butin**. Un fois ouvert, celui-ci permet d'obtenir des butins plus ou moins rares. Les **coffre à butin** permettent notamment d'obtenir les pierres légendaires **Foudre**, **Feu** et **Eau**.
+- Ajout de la commande _!open lootbox_ permettant d'ouvrir un **coffre à butin**
+- *La Charade du Père Fouras* fait désormais gagner un **coffre à butin** et non une **pierre Lune**.
+
+### Patch 1.5 Soon™
 
 Rien de prévu pour l'instant
 
