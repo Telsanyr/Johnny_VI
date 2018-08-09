@@ -10,7 +10,7 @@ import bootstrap_module
 import supervisor_module
 
 # Service version
-SERVICE_VERSION = "1.3.2"
+SERVICE_VERSION = "1.4.0"
 
 # Logger
 LOGGER = bootstrap_module.Logger('./logs/pokemonirc-logs.txt')
@@ -67,8 +67,23 @@ class Service(supervisor_module.AbstractService):
         elif self.isCommand("!crush", msg):
             self.engine.interpreter.crush(user, self.getCommandArguments("!crush", msg))
 
+        elif self.isCommand("!open lootbox", msg):
+            self.engine.interpreter.open_lootbox(user)
+
         elif self.isCommand("!evolve", msg):
-            self.engine.interpreter.evolve(user, self.getCommandArguments("!evolve", msg))
+            self.engine.interpreter.evolve(user, self.getCommandArguments("!evolve", msg), POKESTUFFS.MOONSTONE)
+
+        elif self.isCommand("!moonevolve", msg):
+            self.engine.interpreter.evolve(user, self.getCommandArguments("!moonevolve", msg), POKESTUFFS.MOONSTONE)
+
+        elif self.isCommand("!thunderevolve", msg):
+            self.engine.interpreter.evolve(user, self.getCommandArguments("!thunderevolve", msg), POKESTUFFS.THUNDERSTONE)
+
+        elif self.isCommand("!fireevolve", msg):
+            self.engine.interpreter.evolve(user, self.getCommandArguments("!fireevolve", msg), POKESTUFFS.FIRESTONE)
+
+        elif self.isCommand("!waterevolve", msg):
+            self.engine.interpreter.evolve(user, self.getCommandArguments("!waterevolve", msg), POKESTUFFS.WATERSTONE)
 
         elif self.isCommand("!pokemon", msg):
             self.engine.interpreter.pokemon(self.getCommandArguments("!pokemon", msg))

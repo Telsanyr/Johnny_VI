@@ -81,10 +81,14 @@ class CommandInterpreter():
         # Engine API Call with rights arguments
         self.engine.crush_pokemon(user, pokemon)
 
-    def evolve(self, user, args):
+    def open_lootbox(self, user):
+        # Engine API Call with rights arguments
+        self.engine.open_lootbox(user)
+
+    def evolve(self, user, args, component):
         pokemon = self._extract_pokemon(args)
         # Engine API Call with rights arguments
-        self.engine.evolve_pokemon(user, pokemon)
+        self.engine.evolve_pokemon(user, pokemon, component)
 
     # @param args (integer or string) pokemon name/id or "arena" or nothing
     def pokemon(self, args):

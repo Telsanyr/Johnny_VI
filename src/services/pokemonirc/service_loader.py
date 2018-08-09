@@ -18,6 +18,7 @@ import imp
 SERVICE_PATH = "./src/services/pokemonirc/"
 imp.load_source("pokemonirc_module", SERVICE_PATH + "pokemons.py")
 imp.load_source("pokemonirc_module", SERVICE_PATH + "pokestuffs.py")
+imp.load_source("pokemonirc_module", SERVICE_PATH + "lootboxes.py")
 imp.load_source("pokemonirc_module", SERVICE_PATH + "tall_grass_deamon.py")
 imp.load_source("pokemonirc_module", SERVICE_PATH + "link_cable.py")
 imp.load_source("pokemonirc_module", SERVICE_PATH + "players_models.py")

@@ -10,11 +10,19 @@ class POKESTUFFS():
     SUPERBALL = 3
     KEBAB = 4
     MOONSTONE = 5
+    THUNDERSTONE = 6
+    FIRESTONE = 7
+    WATERSTONE = 8
+    LOOTBOX = 9
     BARBAPAPA_WORDS = ["barbapapa"]
     POKEBALL_WORDS = ["pokeball"]
     SUPERBALL_WORDS = ["superball"]
     KEBAB_WORDS = ["kebab"]
     MOONSTONE_WORDS = ["pierre lune"]
+    THUNDERSTONE_WORDS = ["pierre foudre"]
+    FIRESTONE_WORDS = ["pierre feu"]
+    WATERSTONE_WORDS = ["pierre eau"]
+    LOOTBOX_WORDS = ["coffre à butin"]
 
     # This function is not case sensitive (ncs)
     # @return the corresponding pokestuff
@@ -30,6 +38,14 @@ class POKESTUFFS():
             return POKESTUFFS.KEBAB
         elif s.lower() in POKESTUFFS.MOONSTONE_WORDS:
             return POKESTUFFS.MOONSTONE
+        elif s.lower() in POKESTUFFS.THUNDERSTONE_WORDS:
+            return POKESTUFFS.THUNDERSTONE
+        elif s.lower() in POKESTUFFS.FIRESTONE_WORDS:
+            return POKESTUFFS.FIRESTONE
+        elif s.lower() in POKESTUFFS.WATERSTONE_WORDS:
+            return POKESTUFFS.WATERSTONE
+        elif s.lower() in POKESTUFFS.LOOTBOX_WORDS:
+            return POKESTUFFS.LOOTBOX
         else:
             return POKESTUFFS.UNKNOWN
 
@@ -58,6 +74,22 @@ class POKESTUFFS():
             if word in s.lower():
                 result.append(POKESTUFFS.MOONSTONE)
                 break
+        for word in POKESTUFFS.THUNDERSTONE_WORDS:
+            if word in s.lower():
+                result.append(POKESTUFFS.THUNDERSTONE)
+                break
+        for word in POKESTUFFS.FIRESTONE_WORDS:
+            if word in s.lower():
+                result.append(POKESTUFFS.FIRESTONE)
+                break
+        for word in POKESTUFFS.WATERSTONE_WORDS:
+            if word in s.lower():
+                result.append(POKESTUFFS.WATERSTONE)
+                break
+        for word in POKESTUFFS.LOOTBOX_WORDS:
+            if word in s.lower():
+                result.append(POKESTUFFS.LOOTBOX)
+                break
 
         return result
 
@@ -73,5 +105,13 @@ class POKESTUFFS():
             return "kebab(s) de pokemon"
         elif pk == POKESTUFFS.MOONSTONE:
             return "pierre(s) Lune"
+        elif pk == POKESTUFFS.THUNDERSTONE:
+            return "pierre(s) Foudre"
+        elif pk == POKESTUFFS.FIRESTONE:
+            return "pierre(s) Feu"
+        elif pk == POKESTUFFS.WATERSTONE:
+            return "pierre(s) Eau"
+        elif pk == POKESTUFFS.LOOTBOX:
+            return "coffre(s) à butin"
         else:
             return "<UNKNOWN POKESTUFF>"

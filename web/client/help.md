@@ -52,7 +52,12 @@ The supervisor manage all services available with the bot. It can enable, disabl
 | !pokemon [_arena_] | Show if there is any pokemon in the arena. |
 | !pokemon <_name_/*id*> | Show information of the _name_ pokemon (or with *id* identifier). |
 | !crush <_name_/*id*> | If you own any _name_ pokemon (or with *id* identifier), dismember it and make some kebabs with it. |
-| !evolve <_name_/*id*> | Try to evolve _name_ pokemon (or with *id* identifier) into its pokemon evolution. You will need a _moonstone_ and some _kebabs_. |
+| !open lootbox | Open a loot box. It will reveal some neat loots. |
+| !evolve <_name_/*id*> | Try to evolve _name_ pokemon (or with *id* identifier) into its pokemon evolution with a _moonstone_. It will require some _kebabs_. |
+| !moonevolve <_name_/*id*> | Try to evolve _name_ pokemon (or with *id* identifier) into its pokemon evolution with a _moonstone_. It will require some _kebabs_. |
+| !thunderevolve <_name_/*id*> | Try to evolve _name_ pokemon (or with *id* identifier) into its pokemon evolution with a _thunderstone_. It will require some _kebabs_. |
+| !fireevolve <_name_/*id*> | Try to evolve _name_ pokemon (or with *id* identifier) into its pokemon evolution with a _firestone_. It will require some _kebabs_. |
+| !waterevolve <_name_/*id*> | Try to evolve _name_ pokemon (or with *id* identifier) into its pokemon evolution with a _waterstone_. It will require some _kebabs_. |
 | !buy barbapapa [_user_] | Try to buy 10 *barbapapa* for _user_. You must negotiate with a stupid bot to get them. *If no user is specified, buy them for yourself.* |
 | !buy pokeball [_user_] | Try to buy a *pokeball* for _user_. You must negotiate with a stupid bot to get it. *If no user is specified, buy it for yourself.* |
 | !buy superball [_user_] | Try to buy a *superball* for _user_. You must negotiate with a stupid bot to get it. *If no user is specified, buy it for yourself.* |

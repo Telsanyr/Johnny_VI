@@ -17,6 +17,10 @@ class LinkCable():
         self.buy_pokestuff = pokestuff
 
     def soul_mate_listener(self, msg):
+        if msg.lower() == "** Hautes herbes **".lower(): # Steroïd trigger
+            for i in range(10):
+                self.engine.tall_grass.trigger()
+
         if self.buy_waiting_ack:
             if msg.startswith("Ca fera "): # Positive ack for the buy
                 self.engine.buy_pokestuff(self.buy_username, self.buy_pokestuff)
