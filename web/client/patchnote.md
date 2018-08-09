@@ -50,6 +50,7 @@ Sortie le 29 juillet 2018
 - Ajout de l'objet **coffre à butin**. Un fois ouvert, celui-ci permet d'obtenir des butins plus ou moins rares. Les **coffre à butin** permettent notamment d'obtenir les pierres légendaires **Foudre**, **Feu** et **Eau**.
 - Ajout de la commande _!open lootbox_ permettant d'ouvrir un **coffre à butin**
 - *La Charade du Père Fouras* fait désormais gagner un **coffre à butin** et non une **pierre Lune**.
+- Lorsque vous vous balladez dans des hautes herbes, vos chances de rencontrer des pokemons ou le père Fouras sont multiplier par 10.
 
 ### Patch 1.5 Soon™
 
