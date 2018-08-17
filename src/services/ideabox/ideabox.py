@@ -27,10 +27,10 @@ class Service(supervisor_module.AbstractService):
 
         if msg == "!ideabox":
             self._send(str(self.room.website_url) + "/ideabox")
+        elif msg.startswith("!idea"):
+            self._send("Cette commande n'existe plus gros. Utilise !ideabox new et !help si t'es en deche")
         elif msg.startswith("!ideabox new "):
-            self._send("Cette commande n'existe plus gros. (!help)")
-        elif msg.startswith("!idea "):
-            descr = msg[5:len(msg)]
+            descr = msg[13:len(msg)]
             id = self.ideabox.add_idea(descr)
             self._send(self.ideabox.show_idea(id))
         elif msg.startswith("!ideabox vote "):
