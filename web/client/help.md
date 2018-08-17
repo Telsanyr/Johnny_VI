@@ -68,12 +68,12 @@ The supervisor manage all services available with the bot. It can enable, disabl
 
 *Ideabox service must be enabled to access the following commands. If not, see supervisor commands.*
 
-| Command | Usage |
-| :--- | : ---|
-| !ideabox | Show ideas dedicated web page. |
-| !idea <_description_> | Add a new _idea_ to the box. |
-| !ideabox vote <*id*> | Vote for the idea with the *id* identifier |
-| !ideabox archive <*id*> | Archive the idea with the *id* identifier |
+| Command | Usage | Alias |
+| :--- | :--- | :--- |
+| !ideabox | Show ideas dedicated web page. | _!ib_ |
+| !ideabox new <_description_> | Add a new _idea_ to the box. |  _!ib new_ **-** _!ideabox add_ **-** _!ib add_|
+| !ideabox vote <*id*> | Vote for the idea with the *id* identifier | _!ib vote_ |
+| !ideabox archive <*id*> | Archive the idea with the *id* identifier | _!ib archive_ |
 
 ### Karma
 
