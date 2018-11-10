@@ -19,7 +19,7 @@ import irclib
 SUPERVISOR_LOADER_PATH = './src/supervisor/supervisor_loader.py'
 
 # Bootstrap version
-BOOTSTRAP_VERSION = "1.2.2"
+BOOTSTRAP_VERSION = "1.3.0"
 
 # Logger
 LOGGER = Logger('./logs/bootstrap-logs.txt')
@@ -145,9 +145,11 @@ class Bot(ircbot.SingleServerIRCBot):
     # PRIVATE MESSAGES [LISTENER]
     def on_privmsg(self, serv, ev):
         message = ev.arguments()[0]
-        user = irclib.nm_to_n(ev.source())
-        timestamp = datetime.fromtimestamp(time.time()).strftime('%H:%M:%S.%f')
-        # TODO
+        if message == "!switch debug": # Switch on debug chan
+            self.switch_channel(serv, self.info.DEBUG_ROOM)
+        elif message == "!switch standard": # Switch on standard chan
+            self.switch_channel(serv, self.info.ACTIVE_ROOM)
+        # else ignore any other private message
 
     # MESSAGES IN ROOM [LISTENER]
     def on_pubmsg(self, serv, ev):
