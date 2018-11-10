@@ -9,11 +9,13 @@
 | !switch debug | Switch bot on debug channel (*also available with private messages*) |
 | !switch standard | Switch bot on default channel (*also available with private messages*) |
 
-Switch commands are also available with private messages. You can use que ``/query`` irc command to send private messages. It can be usefull when the bot cannot be found on any channel (when kicked, for instance).
-````
+Switch commands are also available with private messages. You can use `/query` irc command to send private messages. It can be usefull when the bot cannot be found on any channel (when kicked, for instance).
+
+```python
 /query TelsaBOTage !switch debug
 /query TelsaBOTage !switch standard
-````
+```
+
 **Warning:** You must log in with services to message the bot (only registered users can send private messages).
 
 ## Supervisor
