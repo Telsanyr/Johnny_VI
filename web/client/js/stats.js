@@ -2,9 +2,13 @@
 
 var GAME_EVENTS = [];
 var DATE_LIST = [];
-var POKEMON_DATABASE = [];
+var POKEMON_DATABASE;
+var PLAYERS_DATABASE;
 var ALL_DENSITY = 0;
 var NBR_SPAWN = 0;
+var POKEMON_TRY_BY_LEVEL = [undefined, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]; // from 1 to 10
+var PLAYERS_LIST = [];
+var PROBABILITY_REF = [undefined, [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-']];
 
 $(document).ready(function () {
   retrieveEventsData();
@@ -12,7 +16,7 @@ $(document).ready(function () {
 
 function retrieveEventsData(){
   for(var year=2018; year<2019; year++){
-    for(var month=1; month<=12; month++){
+    for(var month=7; month<=12; month++){
       for(var day=1; day<=31; day++){
         var s_year = year + '';
         var s_month = month + '';
@@ -29,15 +33,13 @@ function retrieveEventsData(){
     }
   }
 
-  //getEventsFromDate();
-  // @DEBUG
-  getEventsFromDate()
+  getEventsFromDate();
 }
 
 // date must be formated YYYY-MM-DD
 function getEventsFromDate(){
   if(DATE_LIST.length === 0) {
-    // Fin de l'extraction des events.
+    // End of events extraction
     retrievePokemonDatabase();
   } else {
     var date = DATE_LIST.pop();
@@ -45,14 +47,16 @@ function getEventsFromDate(){
     $.getJSON('./db/events/events_'+date+'.json', function(data) {
       GAME_EVENTS = GAME_EVENTS.concat(data);
       //@DEBUG : console.log("DATA : " + GAME_EVENTS.length);
+      $("#loading_text").text("Loading database ("+GAME_EVENTS.length+" events found).");
     }).always(function() {
-      getEventsFromDate(); // Meme si le fichier n'existe pas, il faut continuer d'explorer la liste DATE_LIST
+      getEventsFromDate(); // If file is not found it will failed but we still want to keep exploring data files (from DATE_LIST)
     });
   }
 }
 
 function retrievePokemonDatabase(){
   //@DEBUG : console.log("--- END DATA RETRIEVING ---");
+  $("#loading_text").text("Loading pokemons database.");
   $.getJSON('./db/pokemons.json', function(data) {
     POKEMON_DATABASE = data
     for(var i=1; i<152; i++){
@@ -60,34 +64,118 @@ function retrievePokemonDatabase(){
       POKEMON_DATABASE[i-1].catch = 0;
     }
 
-    extractDataFromEvents();
+    retrievePlayers();
   }).fail(function() {
     $("#pokedex_section").html('<div class="unknown_player">Unable to load pokemon database.</div>')
   });
 }
 
+function retrievePlayers(){
+  $("#loading_text").text("Loading players database.");
+  $.getJSON('./db/players.json', function(data) {
+    PLAYERS_DATABASE = data;
+    for(var i=0; i<data.length; i++){
+      PLAYERS_LIST.push(data[i].username);
+    }
+    extractDataFromEvents();
+  });
+}
+
 function extractDataFromEvents(){
-  var size = GAME_EVENTS.length
-
-
-
+  $("#loading_text").text("Computing statistics.");
+  var size = GAME_EVENTS.length;
   for(var i=0; i < size; i++){
     if(GAME_EVENTS[i].event === "ARENA_SPAWN"){
       var pokemon_id = GAME_EVENTS[i].args.pokemon;
       POKEMON_DATABASE[pokemon_id-1].spawn++;
       NBR_SPAWN++;
+
     } else if (GAME_EVENTS[i].event === "ARENA_CATCH_SUCCESS"){
+      var pokemon_id = GAME_EVENTS[i].args.pokemon;
       POKEMON_DATABASE[pokemon_id-1].catch++;
+
+      extractLuckFromEvent(GAME_EVENTS[i].args, true);  // Luck computation
+
+    } else if (GAME_EVENTS[i].event === "ARENA_CATCH_FAIL"){
+      extractLuckFromEvent(GAME_EVENTS[i].args, false);  // Luck computation
+
     }
   }
 
-  startHtmlInjection();
+  playersLuckHtmlInjection();
+  pokemonHtmlInjection();
 }
 
-function startHtmlInjection(){
+function extractLuckFromEvent(args, success){
+  var pokemon_id = args.pokemon;
+  var player = args.player;
+  var amount = args.amount;
+  var pokestuff = args.pokestuff;
+  var lvl = POKEMON_DATABASE[pokemon_id-1].power;
+  if((POKEMON_TRY_BY_LEVEL[lvl])[player] === undefined){
+    (POKEMON_TRY_BY_LEVEL[lvl])[player] = [0,0,0,0,0,0,0,0]; // (try, success)
+  }
+  (POKEMON_TRY_BY_LEVEL[lvl])[player][2*(pokestuff - 1)] += amount;
+  if(success){
+    (POKEMON_TRY_BY_LEVEL[lvl])[player][2*(pokestuff - 1) + 1]++;
+  }
+
+  //proba ref
+  PROBABILITY_REF[pokestuff][lvl] = args.probability;
+}
+
+function playersLuckHtmlInjection(){
+  // proba ref (first line)
+  for(var lvl=1; lvl <= 10; lvl++){
+    var table_name = "lvl_"+lvl+"_table";
+     $('#'+table_name).append(''
+       + '<tr>'
+         + '<th scope="row"><i>PROBABILITIES</i></th>'
+         + '<td></td>'
+         + '<td><i>' + (PROBABILITY_REF[1][lvl] !== '-' ? 'ref: ' + Number.parseFloat(100*PROBABILITY_REF[1][lvl]).toFixed(2) + '%' : '') + '</i></td>'
+         + '<td></td>'
+         + '<td><i>' + (PROBABILITY_REF[2][lvl] !== '-' ? 'ref: ' + Number.parseFloat(100*PROBABILITY_REF[2][lvl]).toFixed(2) + '%' : '') + '</i></td>'
+         + '<td></td>'
+         + '<td><i>' + (PROBABILITY_REF[3][lvl] !== '-' ? 'ref: ' + Number.parseFloat(100*PROBABILITY_REF[3][lvl]).toFixed(2) + '%' : '') + '</i></td>'
+         + '<td></td>'
+         + '<td><i>' + (PROBABILITY_REF[4][lvl] !== '-' ? 'ref: ' + Number.parseFloat(100*PROBABILITY_REF[4][lvl]).toFixed(2) + '%' : '') + '</i></td>'
+       + '</tr>'
+     );
+  }
+
+  for(var user_id = 0; user_id < PLAYERS_LIST.length; user_id++){
+    var username = PLAYERS_LIST[user_id];
+
+    for(var lvl=1; lvl <= 10; lvl++){
+      var table_name = "lvl_"+lvl+"_table";
+      var luck_data = (POKEMON_TRY_BY_LEVEL[lvl])[username];
+      if(luck_data !== undefined){
+        $('#'+table_name).append(''
+          + '<tr>'
+            + '<th scope="row">'+username+'</th>'
+            + '<td>'+(luck_data[0] !== 0 ? luck_data[0] : '-')+'</td>'
+            + '<td>'+(luck_data[0] !== 0 ? (luck_data[1]+' ('+Number.parseFloat(luck_data[1]*100.0/luck_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+            + '<td>'+(luck_data[2] !== 0 ? luck_data[2] : '-')+'</td>'
+            + '<td>'+(luck_data[2] !== 0 ? (luck_data[3]+' ('+Number.parseFloat(luck_data[3]*100.0/luck_data[2]).toFixed(1) + '%)') : '-')+'</td>'
+            + '<td>'+(luck_data[4] !== 0 ? luck_data[4] : '-')+'</td>'
+            + '<td>'+(luck_data[4] !== 0 ? (luck_data[5]+' ('+Number.parseFloat(luck_data[5]*100.0/luck_data[4]).toFixed(1) + '%)') : '-')+'</td>'
+            + '<td>'+(luck_data[6] !== 0 ? luck_data[6] : '-')+'</td>'
+            + '<td>'+(luck_data[6] !== 0 ? (luck_data[7]+' ('+Number.parseFloat(luck_data[7]*100.0/luck_data[6]).toFixed(1) + '%)') : '-')+'</td>'
+          + '</tr>'
+        );
+      }
+    }
+  }
+}
+
+function pokemonHtmlInjection(){
   for(var i=1; i<152; i++){
     ALL_DENSITY += POKEMON_DATABASE[i-1].density;
   }
+
+  // hide loading
+  $("#loading_box").css("display", "none");
+  $("#centent_box").css("display", "block");
 
   for(var i=1; i<152; i++){
     var index = (1000+i).toString().substring(1)

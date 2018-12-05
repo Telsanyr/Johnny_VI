@@ -8,7 +8,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0px;
-  font-family: Arial;
+  font-family: 'Open Sans';
   background-color: rgb(252, 252, 252, 1);
 }
 
@@ -20,13 +20,60 @@ body {
 .page_title {
   font-size: 44px;
   text-align: left;
-  color: rgb(51, 51, 51); /* APIX Black */
+  color: rgb(51, 51, 51);
 }
 
-#pokedex_section {
+#content {
   margin: 30px 0px;
   padding: 15px 15px;
   background-color: rgba(0, 255, 0, 0.05);
+}
+
+.section_title {
+  margin: 0px 15px;
+  margin-top: 10px;
+  font-size: 40px;
+  text-align: left;
+  color: rgb(51, 51, 51);
+}
+
+.subsection_title {
+margin: 0px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 32px;
+  text-align: left;
+  color: rgb(51, 51, 51);
+}
+
+#centent_box {
+  display: none;
+}
+
+#loading_box
+{
+  width: 100%;
+  margin: 70px;
+}
+
+.loading_svg
+{
+  position: relative;
+  left: calc(50% - 75px);
+  width: 150px;
+  height: 150px;
+  fill: rgb(65, 65, 65);
+}
+
+#loading_text {
+  margin-top: 50px;
+  color: rgb(51, 51, 51);
+  font-size: 28px;
+  text-align: center;
+  font-style: italic;
+}
+
+#pokedex_section {
   display: flex;
   flex-wrap: wrap;
 }
@@ -36,7 +83,7 @@ body {
   margin: 20px;
   width: 350px;
   height: 180px;
-  background-color: rgba(0, 255, 0, 0.05);
+  background-color: rgba(171, 238, 109, 0.1);
   display: flex;
 }
 
@@ -67,22 +114,5 @@ body {
   width: 150px;
   height: 30px;
   text-align: center;
-  font-family: 'Open Sans';
   font-size: 16px;
-}
-
-.amount {
-  position: absolute;
-  padding-top: 1px;
-  top: 10px;
-  right: 10px;
-  height: 40px;
-  width: 40px;
-  text-align: center;
-  font-family: 'Open Sans';
-  font-size: 20px;
-  color: rgb(209, 16, 5);
-  background-color: rgb(243, 243, 98);
-  border: 3px solid rgb(209, 16, 5);
-  border-radius: 25px;
 }

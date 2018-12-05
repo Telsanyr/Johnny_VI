@@ -25,7 +25,224 @@
   <div class="page">
     <div class="page_title">PokemOnIRC Game Stats</div>
 
-    <div id="pokedex_section">
+    <div id="content">
+      <div id="loading_box">
+        <!-- Loading SVG Gif -->
+        <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" viewBox="0 0 128 128" xml:space="preserve" class="loading_svg">
+          <g>
+            <circle cx="16" cy="64" r="16" />
+            <circle cx="16" cy="64" r="14.344" transform="rotate(45 64 64)"/>
+            <circle cx="16" cy="64" r="12.531" transform="rotate(90 64 64)"/>
+            <circle cx="16" cy="64" r="10.75" transform="rotate(135 64 64)"/>
+            <circle cx="16" cy="64" r="10.063" transform="rotate(180 64 64)"/>
+            <circle cx="16" cy="64" r="8.063" transform="rotate(225 64 64)"/>
+            <circle cx="16" cy="64" r="6.438" transform="rotate(270 64 64)"/>
+            <circle cx="16" cy="64" r="5.375" transform="rotate(315 64 64)"/>
+            <animateTransform attributeName="transform" type="rotate" values="0 64 64;315 64 64;270 64 64;225 64 64;180 64 64;135 64 64;90 64 64;45 64 64" calcMode="discrete" dur="960ms" repeatCount="indefinite">
+            </animateTransform>
+          </g>
+        </svg>
+        <div id="loading_text">Loading database (0 events found).</div>
+      </div>
+
+      <div id="centent_box">
+        <div class="section_title"> Luck</div>
+        <div id="catch_section">
+          <div class="subsection_title"> Pokemons LVL 1 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_1_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 2 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_2_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 3 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_3_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 4 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_4_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 5 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_5_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 6 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_6_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 7 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_7_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 8 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_8_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 9 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_9_table">
+            </tbody>
+          </table>
+
+          <div class="subsection_title"> Pokemons LVL 10 </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Barbapapa Try</th>
+                <th scope="col">Barbapapa Success</th>
+                <th scope="col">Pokeball Try</th>
+                <th scope="col">Pokeball Success</th>
+                <th scope="col">Superball Try</th>
+                <th scope="col">Superball Success</th>
+                <th scope="col">Kebab Try</th>
+                <th scope="col">Kebab Success</th>
+              </tr>
+            </thead>
+            <tbody id="lvl_10_table">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section_title"> Pokemons </div>
+        <div id="pokedex_section">
+        </div>
+      </div>
     </div>
   </div>
 </body>
