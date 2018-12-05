@@ -34,6 +34,10 @@ app.get('/pokedex', function (req, res) {
   res.sendFile(__dirname + '/client/pokedex.html');
 });
 
+app.get('/stats', function (req, res) {
+  res.sendFile(__dirname + '/client/stats.html');
+});
+
 // ------------------------------------
 // ---          WEB SERVER          ---
 // ------------------------------------
