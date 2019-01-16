@@ -15,8 +15,8 @@ $(document).ready(function () {
 });
 
 function retrieveEventsData(){
-  for(var year=2018; year<2019; year++){
-    for(var month=7; month<=12; month++){
+  for(var year=2018; year<=2019; year++){
+    for(var month=1; month<=12; month++){
       for(var day=1; day<=31; day++){
         var s_year = year + '';
         var s_month = month + '';
