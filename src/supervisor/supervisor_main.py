@@ -6,7 +6,7 @@
 import bootstrap_module
 
 # Supervisor Version
-SUPERVISOR_VERSION = "1.2.0"
+SUPERVISOR_VERSION = "1.2.1"
 
 # Logger
 LOGGER = bootstrap_module.Logger('./logs/supervisor-logs.txt')
@@ -27,6 +27,7 @@ class Supervisor():
         self.services.append(ServiceProxy("IdeaBox", "./src/services/ideabox/service_loader.py", True))
         self.services.append(ServiceProxy("PokemOnIRC", "./src/services/pokemonirc/service_loader.py", True))
         self.services.append(ServiceProxy("Morse", "./src/services/others/morse.py", True))
+        self.services.append(ServiceProxy("SpotifyForPleb", "./src/services/others/spotifyforpleb.py", True))
         #self.services.append(ServiceProxy("Chiantos", "./src/services/others/chiantos.py", False))
         #self.services.append(ServiceProxy("CrashTest", "./src/services/others/crashtest.py", True))
 
