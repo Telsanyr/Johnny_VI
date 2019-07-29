@@ -9,7 +9,7 @@ import re
 import supervisor_module
 
 # Service Version
-SERVICE_VERSION = "0.0.1"
+SERVICE_VERSION = "1.0.0"
 
 class Service(supervisor_module.AbstractService):
     def __init__(self, name, room, active):
@@ -19,6 +19,7 @@ class Service(supervisor_module.AbstractService):
         self.VERSION = SERVICE_VERSION
 
     def process(self, msg, user):
-        if re.match("^spotify:(.*)$",msg) != None:
-            result = "!g " + msg
+        matchs = re.search("spotify:track:(\w*)",msg)
+        if matchs != None:
+            result = "https://open.spotify.com/track/" + matchs.group(1)
             self._send(result)
