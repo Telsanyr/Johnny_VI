@@ -9,7 +9,7 @@ var NBR_SPAWN = 0;
 var POKEMON_TRY_BY_LEVEL = [undefined, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]; // from 1 to 10
 var PLAYERS_LIST = [];
 var PROBABILITY_REF = [undefined, [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-']];
-var BOXES_AVG_REF = [undefined, 3.00, 0.50, 0.03, 3.00, 0.99, 0.005, 0.005, 0.005];
+var BOXES_AVG_REF = [undefined, 300, 50, 03, 300, 99, 00.5, 00.5, 00.5];
 var BOXES_OPENING_STATS = [];
 
 $(document).ready(function () {
@@ -116,12 +116,12 @@ function extractBoxesFromEvent(args){
   if(BOXES_OPENING_STATS[player] === undefined){
     BOXES_OPENING_STATS[player] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
+  BOXES_OPENING_STATS[player][0] += 1;
 
   for(var i=0; i < args.loots.length; i++){
     var amount = (args.loots[i]).amount;
     var pokestuff = (args.loots[i]).pokestuff;
     if(pokestuff >= 1 && pokestuff <= 8){
-      BOXES_OPENING_STATS[player][0] += 1;
       BOXES_OPENING_STATS[player][pokestuff] += amount;
     }
   }
@@ -176,9 +176,9 @@ function playersBoxesHtmlInjection(){
           + '<td>'+(boxes_data[3] !== 0 ? (boxes_data[3]+' ('+Number.parseFloat(boxes_data[3]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
           + '<td>'+(boxes_data[4] !== 0 ? (boxes_data[4]+' ('+Number.parseFloat(boxes_data[4]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
           + '<td>'+(boxes_data[5] !== 0 ? (boxes_data[5]+' ('+Number.parseFloat(boxes_data[5]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
-          + '<td>'+(boxes_data[6] !== 0 ? (boxes_data[6]+' ('+Number.parseFloat(boxes_data[6]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
-          + '<td>'+(boxes_data[7] !== 0 ? (boxes_data[7]+' ('+Number.parseFloat(boxes_data[7]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
-          + '<td>'+(boxes_data[8] !== 0 ? (boxes_data[8]+' ('+Number.parseFloat(boxes_data[8]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[6] !== 0 ? (boxes_data[6]+' ('+Number.parseFloat(boxes_data[6]*100.0/boxes_data[0]).toFixed(3) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[7] !== 0 ? (boxes_data[7]+' ('+Number.parseFloat(boxes_data[7]*100.0/boxes_data[0]).toFixed(3) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[8] !== 0 ? (boxes_data[8]+' ('+Number.parseFloat(boxes_data[8]*100.0/boxes_data[0]).toFixed(3) + '%)') : '-')+'</td>'
         + '</tr>'
       );
     }
