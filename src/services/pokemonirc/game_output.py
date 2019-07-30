@@ -83,7 +83,13 @@ class GameOutput():
 
     def ack_ARENA_SPAWN(self, pokemon):
         self.log_game_event("ARENA_SPAWN", {"pokemon": pokemon.id})
-        self.room.send("Un " + str(pokemon.name) + " sauvage entre dans l'arène. Vous avez une minute pour essayer de l'attraper !")
+        if(pokemon.power < 10){
+            self.room.send("Un " + str(pokemon.name) + " sauvage entre dans l'arène. Vous avez une minute pour essayer de l'attraper !")
+        } else {
+            self.room.send("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+            self.room.send(str(pokemon.name) + " entre dans l'arène et il est vraiment pas content. Que le COMBAT COMMENCE !")
+            self.room.send("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+        }
 
     def ack_ARENA_ENROLL(self, player, pokemon, pokestuff, amount):
         self.log_game_event("ARENA_ENROLL", {"player": player.username, "pokemon": pokemon.id, "pokestuff": pokestuff, "amount": amount})

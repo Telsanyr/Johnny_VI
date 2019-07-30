@@ -10,7 +10,7 @@ import bootstrap_module
 import supervisor_module
 
 # Service version
-SERVICE_VERSION = "1.4.1"
+SERVICE_VERSION = "1.4.2"
 
 # Logger
 LOGGER = bootstrap_module.Logger('./logs/pokemonirc-logs.txt')
