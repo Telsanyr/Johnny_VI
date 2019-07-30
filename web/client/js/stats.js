@@ -100,7 +100,7 @@ function extractDataFromEvents(){
     } else if (GAME_EVENTS[i].event === "ARENA_CATCH_FAIL"){
 
       extractLuckFromEvent(GAME_EVENTS[i].args, false);  // Luck computation
-    } else if (GAME_EVENTS[i].event === "RIDDLE_WINNER"){
+    } else if (GAME_EVENTS[i].event === "OPEN_LOOTBOX"){
 
       extractBoxesFromEvent(GAME_EVENTS[i].args);
     }
@@ -113,15 +113,17 @@ function extractDataFromEvents(){
 
 function extractBoxesFromEvent(args){
   var player = args.player;
-  var amount = args.amount;
-  var pokestuff = args.pokestuff;
   if(BOXES_OPENING_STATS[player] === undefined){
     BOXES_OPENING_STATS[player] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
-  if(pokestuff >= 1 && pokestuff <= 8){
-    BOXES_OPENING_STATS[player][0] += 1;
-    BOXES_OPENING_STATS[player][pokestuff] += amount;
+  for(var i=0; i < args.loots.length; i++){
+    var amount = (args.loots[i]).amount;
+    var pokestuff = (args.loots[i]).pokestuff;
+    if(pokestuff >= 1 && pokestuff <= 8){
+      BOXES_OPENING_STATS[player][0] += 1;
+      BOXES_OPENING_STATS[player][pokestuff] += amount;
+    }
   }
 }
 
