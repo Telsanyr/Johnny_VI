@@ -115,7 +115,6 @@ function extractBoxesFromEvent(args){
   var player = args.player;
   var amount = args.amount;
   var pokestuff = args.pokestuff;
-  var lvl = POKEMON_DATABASE[pokemon_id-1].power;
   if(BOXES_OPENING_STATS[player] === undefined){
     BOXES_OPENING_STATS[player] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
