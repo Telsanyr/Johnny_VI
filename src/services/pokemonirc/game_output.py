@@ -21,6 +21,10 @@ class GameOutput():
     # ------------------------------------------------------------------------ #
     # --- Display Messages                                                 --- #
     # ------------------------------------------------------------------------ #
+    def display_STATS(self):
+        link = str(self.room.website_url) + "/stats"
+        self.room.send(link)
+
     def display_POKEMON(self, pokemon, proportion, owners, probabilities):
         s = str(pokemon.name) + ": #" + str(pokemon.id) + ", rate: " + ('%.2f' % proportion) + "%, power: " + str(pokemon.power) + "/10, [ " + str(pokemon.link) + " ]"
         s += ", proba: B(" + ('%.1f' % probabilities[0]) + ")% K(" + ('%.1f' % probabilities[1]) + ")% P(" + ('%.1f' % probabilities[2]) + ")% S(" + ('%.1f' % probabilities[3]) + ")%"

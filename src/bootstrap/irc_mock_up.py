@@ -16,7 +16,7 @@ class IRCMockUp():
         bot = self.bot.info.BOT_NICKNAME
         mklutra = self.bot.info.LUTRA_NICKNAME
         # Room Mock-Up initialization
-        self.bot.room = RoomMockUp("Mock-Up Room", admin, bot, mklutra, "http://127.0.0.1", [admin, bot, mklutra])
+        self.bot.room = RoomMockUp("Mock-Up Room", admin, bot, mklutra, "http://127.0.0.1:14623", [admin, bot, mklutra])
         # Supervisor initialization
         self.bot.load_supervisor(self.bot.room)
         # Loop

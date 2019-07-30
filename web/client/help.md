@@ -71,6 +71,7 @@ The supervisor manage all services available with the bot. It can enable, disabl
 | !buy pokeball [_user_] | Try to buy a *pokeball* for _user_. You must negotiate with a stupid bot to get it. *If no user is specified, buy it for yourself.* |
 | !buy superball [_user_] | Try to buy a *superball* for _user_. You must negotiate with a stupid bot to get it. *If no user is specified, buy it for yourself.* |
 | !catch [*pokestuff*] [*number*] | Enter the arena. You will try to catch the pokemon with *pokestuff* and you will have *number* tries to succeed. *If no pokestuff is specified, barbapapa will be selected by default. If no number is specified, you will have one try.* |
+| !stats | Show statistics of the game. |
 
 
 ### Ideabox

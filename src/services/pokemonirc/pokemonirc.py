@@ -10,7 +10,7 @@ import bootstrap_module
 import supervisor_module
 
 # Service version
-SERVICE_VERSION = "1.4.0"
+SERVICE_VERSION = "1.4.1"
 
 # Logger
 LOGGER = bootstrap_module.Logger('./logs/pokemonirc-logs.txt')
@@ -55,7 +55,10 @@ class Service(supervisor_module.AbstractService):
     # @Override
     def process(self, msg, user):
         # Game commands
-        if self.isCommand("!catch", msg): # Try to enroll to catch a pokemon in arena
+        if self.isCommand("!stats", msg):
+            self.engine.output.display_STATS()
+
+        elif self.isCommand("!catch", msg): # Try to enroll to catch a pokemon in arena
             self.engine.interpreter.catch(user, args = self.getCommandArguments("!catch", msg))
 
         elif self.isCommand("!pokedex", msg):

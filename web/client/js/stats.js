@@ -9,6 +9,8 @@ var NBR_SPAWN = 0;
 var POKEMON_TRY_BY_LEVEL = [undefined, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]; // from 1 to 10
 var PLAYERS_LIST = [];
 var PROBABILITY_REF = [undefined, [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-']];
+var BOXES_AVG_REF = [undefined, 3.00, 0.50, 0.03, 3.00, 0.99, 0.005, 0.005, 0.005];
+var BOXES_OPENING_STATS = [];
 
 $(document).ready(function () {
   retrieveEventsData();
@@ -95,15 +97,33 @@ function extractDataFromEvents(){
       POKEMON_DATABASE[pokemon_id-1].catch++;
 
       extractLuckFromEvent(GAME_EVENTS[i].args, true);  // Luck computation
-
     } else if (GAME_EVENTS[i].event === "ARENA_CATCH_FAIL"){
-      extractLuckFromEvent(GAME_EVENTS[i].args, false);  // Luck computation
 
+      extractLuckFromEvent(GAME_EVENTS[i].args, false);  // Luck computation
+    } else if (GAME_EVENTS[i].event === "RIDDLE_WINNER"){
+
+      extractBoxesFromEvent(GAME_EVENTS[i].args);
     }
   }
 
+  playersBoxesHtmlInjection();
   playersLuckHtmlInjection();
   pokemonHtmlInjection();
+}
+
+function extractBoxesFromEvent(args){
+  var player = args.player;
+  var amount = args.amount;
+  var pokestuff = args.pokestuff;
+  var lvl = POKEMON_DATABASE[pokemon_id-1].power;
+  if(BOXES_OPENING_STATS[player] === undefined){
+    BOXES_OPENING_STATS[player] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  }
+
+  if(pokestuff >= 1 && pokestuff <= 8){
+    BOXES_OPENING_STATS[player][0] += 1;
+    BOXES_OPENING_STATS[player][pokestuff] += amount;
+  }
 }
 
 function extractLuckFromEvent(args, success){
@@ -122,6 +142,46 @@ function extractLuckFromEvent(args, success){
 
   //proba ref
   PROBABILITY_REF[pokestuff][lvl] = args.probability;
+}
+
+function playersBoxesHtmlInjection(){
+  // proba ref (first line)
+    var table_name = "boxes_table";
+     $('#'+table_name).append(''
+       + '<tr>'
+         + '<th scope="row"><i>PROBABILITIES</i></th>'
+         + '<td></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[1] + '%</i></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[2] + '%</i></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[3] + '%</i></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[4] + '%</i></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[5] + '%</i></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[6] + '%</i></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[7] + '%</i></td>'
+         + '<td><i>ref: ' + BOXES_AVG_REF[8] + '%</i></td>'
+       + '</tr>'
+     );
+
+  for(var user_id = 0; user_id < PLAYERS_LIST.length; user_id++){
+    var username = PLAYERS_LIST[user_id];
+    var boxes_data = BOXES_OPENING_STATS[username];
+    if(boxes_data !== undefined){
+      $('#'+table_name).append(''
+        + '<tr>'
+          + '<th scope="row">'+username+'</th>'
+          + '<td>'+(boxes_data[0] !== 0 ? boxes_data[0] : '-')+'</td>'
+          + '<td>'+(boxes_data[1] !== 0 ? (boxes_data[1]+' ('+Number.parseFloat(boxes_data[1]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[2] !== 0 ? (boxes_data[2]+' ('+Number.parseFloat(boxes_data[2]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[3] !== 0 ? (boxes_data[3]+' ('+Number.parseFloat(boxes_data[3]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[4] !== 0 ? (boxes_data[4]+' ('+Number.parseFloat(boxes_data[4]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[5] !== 0 ? (boxes_data[5]+' ('+Number.parseFloat(boxes_data[5]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[6] !== 0 ? (boxes_data[6]+' ('+Number.parseFloat(boxes_data[6]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[7] !== 0 ? (boxes_data[7]+' ('+Number.parseFloat(boxes_data[7]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+          + '<td>'+(boxes_data[8] !== 0 ? (boxes_data[8]+' ('+Number.parseFloat(boxes_data[8]*100.0/boxes_data[0]).toFixed(1) + '%)') : '-')+'</td>'
+        + '</tr>'
+      );
+    }
+  }
 }
 
 function playersLuckHtmlInjection(){

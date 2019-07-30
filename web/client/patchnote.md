@@ -51,6 +51,7 @@ Sortie le 29 juillet 2018
 - Ajout de la commande _!open lootbox_ permettant d'ouvrir un **coffre à butin**
 - *La Charade du Père Fouras* fait désormais gagner un **coffre à butin** et non une **pierre Lune**.
 - Lorsque vous vous balladez dans des hautes herbes, vos chances de rencontrer des pokemons ou le père Fouras sont multiplier par 10.
+- Ajout de la page de statistiques du jeu.
 
 ### Patch 1.5 Soon™
 
