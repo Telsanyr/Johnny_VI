@@ -9,7 +9,7 @@ var NBR_SPAWN = 0;
 var POKEMON_TRY_BY_LEVEL = [undefined, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]; // from 1 to 10
 var PLAYERS_LIST = [];
 var PROBABILITY_REF = [undefined, [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-'], [undefined,'-','-','-','-','-','-','-','-','-','-']];
-var BOXES_AVG_REF = [undefined, 300, 50, 03, 300, 99, 00.5, 00.5, 00.5];
+var BOXES_AVG_REF = [undefined, 300, 50, 3, 300, 99, 0.5, 0.5, 0.5];
 var BOXES_OPENING_STATS = [];
 
 $(document).ready(function () {
