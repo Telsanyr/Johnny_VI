@@ -93,3 +93,12 @@ The supervisor manage all services available with the bot. It can enable, disabl
 | :--- | : ---|
 | !karma | Show my karma score. |
 | !karmas | Show karma scores of all users. |
+
+### Dynamic Commands
+
+*Dynamic Commands service must be enabled to access the following commands. If not, see supervisor commands.*
+
+| Command | Usage |
+| :--- | :--- |
+| !setcmd <_cmd_> <_answer_> | Add a new command _cmd_ that will answer the specified _answer_. |
+| !<_cmd_> | Call an already existing command. |
