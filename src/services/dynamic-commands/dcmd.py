@@ -34,13 +34,17 @@ class Service(supervisor_module.AbstractService):
             cmd = (descr.split(' '))[0]
             answer = descr[len(cmd)+1:len(msg)]
             self.table.set_cmd(cmd, answer)
-        else:
+        elif msg.startswith("!"):
+            cmd = msg[1:len(msg)]
             answer = self.table.call_cmd(cmd)
             if answer != None:
                 self._send(answer)
             else:
                 # Nothing has been done in this service, do not update database
                 update_database = False
+        else:
+            # Nothing has been done in this service, do not update database
+            update_database = False
 
         # Update database if necessary
         if update_database:
