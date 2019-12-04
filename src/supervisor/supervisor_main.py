@@ -28,7 +28,7 @@ class Supervisor():
         self.services.append(ServiceProxy("PokemOnIRC", "./src/services/pokemonirc/service_loader.py", True))
         self.services.append(ServiceProxy("Morse", "./src/services/others/morse.py", True))
         self.services.append(ServiceProxy("SpotifyForPleb", "./src/services/others/spotifyforpleb.py", True))
-        self.services.append(ServiceProxy("DynamicCommands", "./src/services/dynamic-commands/dcmd.py", True))
+        self.services.append(ServiceProxy("DynamicCommands", "./src/services/dynamic-commands/service_loader.py", True))
         #self.services.append(ServiceProxy("Chiantos", "./src/services/others/chiantos.py", False))
         #self.services.append(ServiceProxy("CrashTest", "./src/services/others/crashtest.py", True))
 
