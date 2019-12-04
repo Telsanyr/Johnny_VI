@@ -6,7 +6,7 @@
 import bootstrap_module
 
 # Supervisor Version
-SUPERVISOR_VERSION = "1.2.1"
+SUPERVISOR_VERSION = "1.2.2"
 
 # Logger
 LOGGER = bootstrap_module.Logger('./logs/supervisor-logs.txt')
@@ -22,12 +22,13 @@ class Supervisor():
         # New services should be added there
         self.services.append(ServiceProxy("Core", "./src/services/core/core.py", True))
         self.services.append(ServiceProxy("ElSpanishRigolator", "./src/services/others/elspanishrigolator.py", False))
-        self.services.append(ServiceProxy("Flatterie", "./src/services/others/flatterie.py", True))
+        self.services.append(ServiceProxy("Flatterie", "./src/services/others/flatterie.py", False))
         self.services.append(ServiceProxy("Karma", "./src/services/karma/service_loader.py", True))
         self.services.append(ServiceProxy("IdeaBox", "./src/services/ideabox/service_loader.py", True))
         self.services.append(ServiceProxy("PokemOnIRC", "./src/services/pokemonirc/service_loader.py", True))
         self.services.append(ServiceProxy("Morse", "./src/services/others/morse.py", True))
         self.services.append(ServiceProxy("SpotifyForPleb", "./src/services/others/spotifyforpleb.py", True))
+        self.services.append(ServiceProxy("DynamicCommands", "./src/services/dynamic-commands/dcmd.py", True))
         #self.services.append(ServiceProxy("Chiantos", "./src/services/others/chiantos.py", False))
         #self.services.append(ServiceProxy("CrashTest", "./src/services/others/crashtest.py", True))
 
