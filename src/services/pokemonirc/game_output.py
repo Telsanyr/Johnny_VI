@@ -14,9 +14,21 @@ class GameOutput():
     def __init__(self, room, path, web_copy_path):
         # Class attributes
         self.room = room
+        self.is_soft_muted = False
         # Thoses are only paths of folders, we will determine filename according to the today's date.
         self.database_path = path
         self.web_copy_database_path = web_copy_path
+
+    def softmute(self, bool):
+        if bool == True or bool == False:
+            self.is_soft_muted = bool
+        else:
+            self.is_soft_muted = not self.is_soft_muted
+        # display current status
+        if self.is_soft_muted:
+            self.room.send("PokemOnIRC soft mute is now ENABLED.")
+        else:
+            self.room.send("PokemOnIRC soft mute is now DISABLED.")
 
     # ------------------------------------------------------------------------ #
     # --- Display Messages                                                 --- #
@@ -84,7 +96,8 @@ class GameOutput():
     def ack_ARENA_SPAWN(self, pokemon):
         self.log_game_event("ARENA_SPAWN", {"pokemon": pokemon.id})
         if(pokemon.power < 10):
-            self.room.send("Un " + str(pokemon.name) + " sauvage entre dans l'arène. Vous avez une minute pour essayer de l'attraper !")
+            if(not self.is_soft_muted):
+                self.room.send("Un " + str(pokemon.name) + " sauvage entre dans l'arène. Vous avez une minute pour essayer de l'attraper !")
         else:
             self.room.send("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
             self.room.send(str(pokemon.name) + " entre dans l'arène et il est vraiment pas content. Que le COMBAT COMMENCE !")
@@ -96,7 +109,8 @@ class GameOutput():
 
     def ack_ARENA_FIGHT(self, pokemon):
         self.log_game_event("ARENA_FIGHT", {"pokemon": pokemon.id})
-        self.room.send("Le combat commence ! Dresseurs, avancez-vous dans l'arène.")
+        if(pokemon.power >= 10 or (not self.is_soft_muted)):
+            self.room.send("Le combat commence ! Dresseurs, avancez-vous dans l'arène.")
 
     def ack_ARENA_CATCH_SUCCESS(self, player, pokemon, pokestuff, amount, probability, rolls):
         self.log_game_event("ARENA_CATCH_SUCCESS", {"player": player.username, "pokemon": pokemon.id, "pokestuff": pokestuff, "amount": amount, "probability": probability, "rolls": rolls})
@@ -118,7 +132,8 @@ class GameOutput():
     def ack_ARENA_CLOSE(self, pokemon, success):
         self.log_game_event("ARENA_CLOSE", {"pokemon": pokemon.id, "caught": success})
         if not success:
-            self.room.send("Personne n'a réussi à convaincre " + str(pokemon.name) + " de le rejoindre. Il s'enfuit.")
+            if(pokemon.power >= 10 or (not self.is_soft_muted)):
+                self.room.send("Personne n'a réussi à convaincre " + str(pokemon.name) + " de le rejoindre. Il s'enfuit.")
 
     def ack_BUY_SHOP(self, player, pokestuff, amount):
         self.log_game_event("BUY_SHOP", {"player": player.username, "pokestuff": pokestuff, "amount": amount})

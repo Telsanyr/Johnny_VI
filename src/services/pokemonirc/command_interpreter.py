@@ -38,6 +38,14 @@ class CommandInterpreter():
     # ------------------------------------------------------------------------ #
     # --- Public                                                           --- #
     # ------------------------------------------------------------------------ #
+    def softmute(self, args):
+        if args == "on" or args == "ON" or args == "enable" or args == "ENABLE" or args == "enabled" or args == "ENABLED":
+            self.output.softmute(True)
+        elif args == "off" or args == "OFF" or args == "disable" or args == "DISABLE" or args == "disabled" or args == "DISABLED":
+            self.output.softmute(False)
+        else:
+            self.output.softmute(None)
+
     def catch(self, user, args):
         args = args.lower()
         stuff = POKESTUFFS.UNKNOWN
